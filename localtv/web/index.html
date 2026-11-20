@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LocalTV</title>
+  <link rel="stylesheet" href="/assets/app.css?v=32">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <strong>LocalTV</strong>
+      <span>本机创作台</span>
+    </div>
+    <div class="top-actions">
+      <div class="project-switch" id="projectSwitch">
+        <button type="button" class="chip project-chip" id="projectChip" aria-expanded="false" aria-controls="projectMenu">
+          <span id="projectChipName">默认项目</span>
+        </button>
+        <div class="project-menu" id="projectMenu" hidden>
+          <div id="projectMenuList"></div>
+          <button type="button" class="text-button" id="projectMenuLibrary">打开项目页</button>
+        </div>
+      </div>
+      <span id="keychip" class="chip">正在读取配置</span>
+      <button type="button" id="openSettings" class="ghost">设置</button>
+    </div>
+  </header>
+
+  <main class="workspace" id="workspace">
+    <nav class="rail" aria-label="工作区">
+      <button type="button" id="openHistory"><b>项目</b><small id="historyCount">默认项目</small></button>
+      <div class="rail-rule"></div>
+      <div id="kinds">
+        <button type="button" data-kind="image" class="is-on"><b>图片</b><small>Seedream</small></button>
+        <button type="button" data-kind="video"><b>视频</b><small>Seedance</small></button>
+      </div>
+    </nav>
+
+    <section class="board">
+      <div id="guide" class="guide"></div>
+      <div id="result" class="result"></div>
+
+      <section class="generator" id="generator">
+        <div class="generator-top">
+          <div id="modelBar" class="model-bar"></div>
+          <div id="tasks" class="tasks"></div>
+        </div>
+        <p id="taskHelp" class="task-help"></p>
+        <div class="composer">
+          <label class="prompt">
+            <span>提示词</span>
+            <textarea id="prompt" rows="3" placeholder="描述画面、光线和镜头。参考图可以直接拖进这个生成器。"></textarea>
+          </label>
+          <div id="media"></div>
+        </div>
+        <div id="examples" class="examples"></div>
+        <ul id="errors" class="messages"></ul>
+        <ul id="warnings" class="messages warn"></ul>
+        <details class="summary">
+          <summary>查看这次实际提交的字段</summary>
+          <p class="meta">和模型默认值相同的项不会发送。</p>
+          <pre id="payload">{}</pre>
+        </details>
+        <div class="generator-foot">
+          <div id="shortcuts" class="shortcuts"></div>
+          <div class="generate-row">
+            <button type="button" class="text-button" id="newConversation">新对话</button>
+            <span id="genState"></span>
+            <button type="button" id="generate">生成图片</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="params" id="params"></aside>
+    <section class="project-page" id="projectPage">
+      <header class="project-head">
+        <div>
+          <p class="eyebrow">项目</p>
+          <h2 id="projectTitle">项目</h2>
+          <p id="projectStats" class="meta"></p>
+        </div>
+        <div class="project-head-actions">
+          <button type="button" id="useProject" class="solid">在此项目中创作</button>
+        </div>
+      </header>
+      <div class="project-layout">
+        <aside class="project-side">
+          <div class="new-project">
+            <input id="projectName" type="text" maxlength="40" placeholder="新项目名称">
+            <button type="button" id="createProject" class="solid">新建</button>
+          </div>
+          <p id="projectError" class="error-line"></p>
+          <div id="projectList" class="project-list"></div>
+        </aside>
+        <section class="project-main">
+          <div id="categoryBar" class="tasks"></div>
+          <div id="historyList"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="settings">
+    <form method="dialog" id="settingsForm">
+      <header>
+        <h2>设置</h2>
+        <button type="button" id="closeSettings" class="ghost">关闭</button>
+      </header>
+      <p class="meta">每个服务商单独保存密钥和接口，只写在这台电脑上。换模型时用对应服务商的配置，不会混用。</p>
+      <div id="providerSettings"></div>
+      <label>
+        <span>成片存储位置</span>
+        <span class="path-row">
+          <input id="libraryPath" type="text" spellcheck="false" placeholder="/Users/你的名字/Movies/LocalTV">
+          <button type="button" id="pickLibrary" class="ghost">选择</button>
+        </span>
+      </label>
+      <p class="meta">项目、任务和生成文件都放在这个文件夹。保存新位置时，已有项目会一起搬过去。密钥仍留在配置文件里。</p>
+      <p id="settingsError" class="error-line"></p>
+      <p id="configMeta" class="meta"></p>
+      <div class="dialog-actions">
+        <button type="submit" class="solid">保存</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="/assets/app.js?v=32"></script>
+</body>
+</html>
